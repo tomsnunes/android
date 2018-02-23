@@ -95,17 +95,17 @@ public class FingerprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fingerprintlock);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getWindow() != null) {
             getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ThemeUtils.fontColor());
         toolbar.setBackground(new ColorDrawable(ThemeUtils.primaryColor()));
     }
 
     private void startFingerprint() {
-        TextView fingerprintTextView = (TextView) findViewById(R.id.scanfingerprinttext);
+        TextView fingerprintTextView = findViewById(R.id.scanfingerprinttext);
 
         FingerprintManager fingerprintManager =
                 (FingerprintManager) MainApp.getAppContext().getSystemService(Context.FINGERPRINT_SERVICE);
@@ -130,7 +130,7 @@ public class FingerprintActivity extends AppCompatActivity {
                     @Override
                     public void onFailed(String error) {
                         Toast.makeText(MainApp.getAppContext(), error, Toast.LENGTH_LONG).show();
-                        ImageView imageView = (ImageView) findViewById(R.id.fingerprinticon);
+                        ImageView imageView = findViewById(R.id.fingerprinticon);
                         int[][] states = new int[][]{
                                 new int[]{android.R.attr.state_activated},
                                 new int[]{-android.R.attr.state_activated}
@@ -159,7 +159,7 @@ public class FingerprintActivity extends AppCompatActivity {
         super.onResume();
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         startFingerprint();
-        ImageView imageView = (ImageView)findViewById(R.id.fingerprinticon);
+        ImageView imageView = findViewById(R.id.fingerprinticon);
         imageView.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_fingerprint, ThemeUtils.primaryColor()));
     }
 

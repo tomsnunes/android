@@ -96,7 +96,7 @@ public class RenameFileDialogFragment
         
         // Setup layout 
         String currentName = mTargetFile.getFileName();
-        EditText inputText = ((EditText)v.findViewById(R.id.user_input));
+        EditText inputText = v.findViewById(R.id.user_input);
         inputText.setText(currentName);
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
@@ -117,7 +117,11 @@ public class RenameFileDialogFragment
                 .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
                         accentColor));
         Dialog d = builder.create();
-        d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        if (d.getWindow() != null) {
+            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+        
         return d;
     }    
 

@@ -747,25 +747,31 @@ public class Preferences extends PreferenceActivity
 
     private void setupActionBar() {
         ActionBar actionBar = getDelegate().getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
-        actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor()));
-        getWindow().getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
-                .getColor(getResources(), R.color.background_color, null)));
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor()));
+
+            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
         }
 
-        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-        actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
+        if (getWindow() != null) {
+            getWindow().getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
+                    .getColor(getResources(), R.color.background_color, null)));
 
-        // For adding content description tag to a title field in the action bar
-        int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-        View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
-        if (actionBarTitleView != null) {    // it's null in Android 2.x
-            getWindow().getDecorView().findViewById(actionBarTitleId).
-                    setContentDescription(getString(R.string.actionbar_settings));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
+            }
+
+            // For adding content description tag to a title field in the action bar
+            int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
+            View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
+            if (actionBarTitleView != null) {    // it's null in Android 2.x
+                getWindow().getDecorView().findViewById(actionBarTitleId).
+                        setContentDescription(getString(R.string.actionbar_settings));
+            }
         }
     }
 

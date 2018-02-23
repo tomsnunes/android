@@ -89,7 +89,7 @@ public class SharePasswordDialogFragment extends DialogFragment
         View v = inflater.inflate(R.layout.password_dialog, null);
 
         // Setup layout
-        EditText inputText = ((EditText)v.findViewById(R.id.share_password));
+        EditText inputText = v.findViewById(R.id.share_password);
         inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         inputText.setText("");
         inputText.requestFocus();
@@ -102,7 +102,11 @@ public class SharePasswordDialogFragment extends DialogFragment
                .setNegativeButton(R.string.common_cancel, this)
                .setTitle(R.string.share_link_password_title);
         Dialog d = builder.create();
-        d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        if (d.getWindow() != null) {
+            d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+        
         return d;
     }
 
