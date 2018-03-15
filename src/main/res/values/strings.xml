@@ -775,4 +775,5 @@
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_push_description">Show push notifications sent by server, e.g. when mentioned in comments, you receive a new remote share or an announcement was posted by an admin.</string>
     <string name="sendbutton_description">Send button icon</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
 </resources>
