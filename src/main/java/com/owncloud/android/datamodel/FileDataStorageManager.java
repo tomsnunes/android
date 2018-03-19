@@ -120,6 +120,26 @@ public class FileDataStorageManager {
     }
 
 
+    /**
+     * This will return a OCFile by its given FileId here refered as the remoteId.
+     * Its the fileId ownCloud Core uses to identify a file even if its name has changed.
+     *
+     *
+     * @param remoteID
+     * @return
+     */
+    public OCFile getFileByRemoteId(String remoteID) {
+        Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_REMOTE_ID, remoteID);
+        OCFile file = null;
+        if(c != null) {
+            if(c.moveToFirst()) {
+                file = createFileInstance(c);
+            }
+            c.close();
+        }
+        return file;
+    }
+
     public OCFile getFileById(long id) {
         Cursor c = getFileCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
         OCFile file = null;
