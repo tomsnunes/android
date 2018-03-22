@@ -132,7 +132,7 @@ public class FileDownloader extends Service
                 .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor())
+                .setColor(ThemeUtils.primaryColor(getApplicationContext()))
                 .build();
 
         // add AccountsUpdatedListener
